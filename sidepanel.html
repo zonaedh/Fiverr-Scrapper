@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiverr Boss v1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <!-- LICENSE GATE OVERLAY -->
+  <div id="license-gate" class="license-gate-overlay">
+    <div class="gate-box">
+      <h1>Fiverr Boss <span class="version-badge">v1</span></h1>
+      <p class="gate-subtitle">Made by Zonaed Hossain</p>
+      
+      <div class="gate-input-area">
+        <input type="text" id="gate-license-input" placeholder="XXXXX-XXXXX-XXXXX-XXXXX" maxlength="24">
+        <button id="gate-activate-btn">Unlock Extension</button>
+        <p class="gate-feedback" id="gate-feedback"></p>
+      </div>
+
+      <div class="gate-about">
+        <p><strong>Developer:</strong> Zonaed Hossain</p>
+        <p><strong>Website:</strong> <a href="https://www.zonaedhossain.com" target="_blank">www.zonaedhossain.com</a></p>
+        <p><strong>Founder of The Shark Web</strong></p>
+        <p><strong>Website:</strong> <a href="https://www.thesharkweb.com" target="_blank">www.thesharkweb.com</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP (Hidden until unlocked) -->
+  <div class="app-container" id="app-container" style="display: none;">
+    <header class="app-header">
+      <div class="header-titles">
+        <h1>Fiverr Boss <span class="version-badge">v1</span></h1>
+        <p class="subtitle">Made by Zonaed Hossain</p>
+      </div>
+      <div class="license-badge">
+        <span class="glow-dot"></span> Activated
+      </div>
+    </header>
+
+    <nav class="menubar">
+      <button class="menu-btn active" data-tab="scraper">Scraper</button>
+      <button class="menu-btn" data-tab="dashboard">Dashboard</button>
+      <button class="menu-btn" data-tab="socials">Socials</button>
+      <button class="menu-btn" data-tab="about">About</button>
+      <button class="menu-btn" data-tab="license">License</button>
+    </nav>
+
+    <!-- Scraper Tab -->
+    <section id="scraper-tab" class="tab-content active">
+      <div class="input-section">
+        <label for="url-input">Fiverr Search / Category URL</label>
+        <input type="text" id="url-input" placeholder="Paste Fiverr search link here...">
+        <button id="start-btn">Start Scraping</button>
+        <button id="pause-btn" class="pause-btn hidden">Pause</button>
+      </div>
+      <div class="status-section hidden" id="status-section">
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+        </div>
+        <p id="progress-text">Initializing...</p>
+      </div>
+      <div class="log-section">
+        <h3>Activity Log</h3>
+        <div id="log-container" class="log-container"></div>
+      </div>
+    </section>
+
+    <!-- Dashboard Tab -->
+    <section id="dashboard-tab" class="tab-content">
+      <h2 class="section-heading">Dashboard Metrics</h2>
+      <div class="metrics-grid">
+        <div class="metric-card"><p class="metric-value" id="metric-gigs">0</p><p class="metric-label">Gigs Found</p></div>
+        <div class="metric-card"><p class="metric-value" id="metric-buyers">0</p><p class="metric-label">Usernames Found</p></div>
+        <div class="metric-card"><p class="metric-value" id="metric-images">0</p><p class="metric-label">Images Found</p></div>
+      </div>
+      <div class="dashboard-actions">
+        <button id="export-btn" class="export-btn">Export Data to CSV</button>
+        <button id="reset-btn" class="reset-btn">Hard Reset All Data</button>
+      </div>
+    </section>
+
+    <!-- Socials Tab -->
+    <section id="socials-tab" class="tab-content">
+      <h2 class="section-heading">Socials OSINT Tool</h2>
+      <div class="socials-content">
+        <p>Upload a previously exported CSV file to run Deep OSINT on the buyers listed in it.</p>
+        <div class="upload-area">
+          <input type="file" id="csv-upload" accept=".csv" hidden>
+          <button id="upload-btn" class="upload-btn">Import / Upload CSV</button>
+          <p id="csv-status" class="csv-status">No file selected.</p>
+        </div>
+        <button id="start-csv-osint" class="start-csv-btn" disabled>Start Social OSINT Search</button>
+        <button id="pause-csv-btn" class="pause-btn hidden">Pause</button>
+      </div>
+      <div class="dashboard-actions">
+        <button id="export-csv-osint" class="export-btn">Export Updated CSV</button>
+      </div>
+    </section>
+
+    <!-- About Tab -->
+    <section id="about-tab" class="tab-content">
+      <h2 class="section-heading">About This Extension</h2>
+      <div class="about-content">
+        <p><strong>Version:</strong> 1.0.1</p>
+        <p><strong>Developer:</strong> Zonaed Hossain</p>
+        <p><strong>Website:</strong> <a href="https://www.zonaedhossain.com" target="_blank">www.zonaedhossain.com</a></p>
+        <br>
+        <p><strong>Founder of The Shark Web</strong></p>
+        <p><strong>Website:</strong> <a href="https://www.thesharkweb.com" target="_blank">www.thesharkweb.com</a></p>
+      </div>
+    </section>
+
+    <!-- License Tab -->
+    <section id="license-tab" class="tab-content">
+      <h2 class="section-heading">License Management</h2>
+
+      <!-- Status Banner -->
+      <div class="lic-status-banner" id="license-status-box">
+        <div class="lic-status-dot-wrap">
+          <span class="glow-dot"></span>
+        </div>
+        <div class="lic-status-info">
+          <p class="lic-status-title" id="license-status-text">License Active</p>
+          <p class="lic-status-sub" id="license-status-sub">Synced with server</p>
+        </div>
+      </div>
+
+      <!-- Customer Card -->
+      <div class="lic-card">
+        <div class="lic-card-icon">👤</div>
+        <div class="lic-card-body">
+          <p class="lic-card-label">Licensed To</p>
+          <p class="lic-card-value" id="licensed-to-text">—</p>
+        </div>
+      </div>
+
+      <!-- Key Card -->
+      <div class="lic-card">
+        <div class="lic-card-icon">🔑</div>
+        <div class="lic-card-body">
+          <p class="lic-card-label">License Key</p>
+          <p class="lic-card-value lic-key-text" id="license-key-display">—</p>
+        </div>
+      </div>
+
+      <!-- Expiry & Days Grid -->
+      <div class="lic-grid">
+        <div class="lic-grid-card">
+          <p class="lic-grid-label">⏳ Expires On</p>
+          <p class="lic-grid-value" id="license-expiry-display">—</p>
+        </div>
+        <div class="lic-grid-card lic-days-card">
+          <p class="lic-grid-label">🕐 Days Left</p>
+          <p class="lic-grid-value lic-days-value" id="remaining-days">—</p>
+        </div>
+      </div>
+
+      <!-- Sign Out -->
+      <button id="signout-btn" class="signout-btn">⛔ Sign Out & Deactivate</button>
+      <p class="license-feedback" id="license-feedback"></p>
+    </section>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

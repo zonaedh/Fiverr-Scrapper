@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Fiverr Boss v1",
+  "version": "2.0",
+  "author": "Zonaed Hossain",
+  "description": "Advanced Fiverr buyer scraper and OSINT tool with dashboard analytics.",
+  "permissions": [
+    "tabs",
+    "scripting",
+    "storage",
+    "sidePanel",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://*.fiverr.com/*",
+    "*://*.google.com/*",
+    "*://lens.google.com/*",
+    "*://*.bing.com/*",
+    "*://*.supabase.co/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "action": {
+    "default_title": "Open Fiverr Boss"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.fiverr.com/*"],
+      "js": ["content-script.js"]
+    }
+  ]
+}

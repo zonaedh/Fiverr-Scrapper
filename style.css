@@ -1,0 +1,385 @@
+/* License Gate Overlay */
+.license-gate-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #0f172a;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.gate-box {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.gate-box h1 { 
+  font-size: 1.6rem; 
+  background: linear-gradient(90deg, #8b5cf6, #ec4899); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+  margin-bottom: 5px; 
+}
+
+.gate-subtitle { font-size: 0.8rem; color: #94a3b8; margin-bottom: 24px; }
+.gate-input-area { margin-bottom: 24px; }
+.gate-feedback { font-size: 0.85rem; color: #f87171; margin-top: 12px; min-height: 20px; font-weight: 600; }
+
+.gate-about { text-align: left; border-top: 1px solid #334155; padding-top: 20px; margin-top: 20px; }
+.gate-about p { margin-bottom: 6px; color: #cbd5e1; font-size: 0.85rem; }
+.gate-about a { color: #8b5cf6; text-decoration: none; }
+.gate-about .about-desc { margin-top: 12px; font-size: 0.8rem; color: #94a3b8; }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header */
+.app-header {
+  background-color: #1e293b;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+}
+
+.header-titles h1 {
+  font-size: 1.4rem;
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex; /* FIXES OVERLAP */
+  align-items: center;
+  gap: 8px;
+}
+
+.version-badge {
+  font-size: 0.7rem;
+  background: #475569;
+  color: #fff !important; /* FORCE WHITE */
+  -webkit-text-fill-color: #fff !important; /* FORCE WHITE */
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.license-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.glow-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #4ade80;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 8px #4ade80; }
+  50% { box-shadow: 0 0 16px #4ade80; }
+  100% { box-shadow: 0 0 8px #4ade80; }
+}
+
+/* Menubar */
+.menubar {
+  display: flex;
+  background-color: #020617;
+  border-bottom: 1px solid #334155;
+}
+
+.menu-btn {
+  flex: 1;
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.menu-btn:hover { color: #e2e8f0; }
+.menu-btn.active { color: #fff; border-bottom: 2px solid #8b5cf6; }
+
+/* Tabs */
+.tab-content {
+  display: none;
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.tab-content.active { display: block; }
+
+/* Collapsible Panel */
+.collapsible { background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+.collapsible-btn { width: 100%; text-align: left; background: #334155; color: #e2e8f0; padding: 12px; cursor: pointer; border: none; outline: none; font-size: 0.9rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.collapsible-btn::after { content: '+'; font-size: 1.2rem; }
+.collapsible-btn.active::after { content: '-'; }
+.collapsible-content { padding: 0 16px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.collapsible-content ol { padding-left: 20px; margin: 16px 0; }
+.collapsible-content li { margin-bottom: 8px; color: #cbd5e1; font-size: 0.85rem; line-height: 1.4; }
+
+/* Inputs & Buttons */
+.input-section, .socials-content {
+  background-color: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #334155;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #475569;
+  padding: 12px;
+  border-radius: 8px;
+  color: #f8fafc;
+  outline: none;
+  margin-bottom: 12px;
+}
+
+button {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:disabled { background: #475569; cursor: not-allowed; }
+
+.pause-btn { background: linear-gradient(90deg, #f59e0b, #d97706); margin-top: 8px; }
+.pause-btn.paused { background: linear-gradient(90deg, #3b82f6, #2563eb); }
+.hidden { display: none !important; }
+
+/* Status & Log */
+.status-section { background-color: #1e293b; padding: 15px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 20px; }
+.progress-bar-container { width: 100%; height: 8px; background-color: #334155; border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #8b5cf6, #ec4899); transition: width 0.5s ease; }
+#progress-text, #csv-progress-text { font-size: 0.85rem; color: #cbd5e1; }
+
+.log-section h3 { font-size: 1rem; margin-bottom: 10px; color: #cbd5e1; }
+.log-container { background-color: #020617; border: 1px solid #334155; border-radius: 8px; padding: 12px; height: 200px; overflow-y: auto; font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; }
+.log-entry { margin-bottom: 6px; color: #94a3b8; border-bottom: 1px solid #1e293b; padding-bottom: 4px; }
+.log-entry.success { color: #4ade80; }
+.log-entry.warning { color: #facc15; }
+.log-entry.error { color: #f87171; }
+
+/* Dashboard Tab */
+.section-heading { font-size: 1.2rem; margin-bottom: 20px; color: #e2e8f0; }
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+.metric-card { background-color: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; text-align: center; }
+.metric-value { font-size: 2rem; font-weight: 800; color: #8b5cf6; margin-bottom: 4px; }
+.metric-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
+.dashboard-actions { margin-top: 20px; }
+.export-btn { background: linear-gradient(90deg, #10b981, #059669); }
+
+/* Reset Button */
+.reset-btn { background: linear-gradient(90deg, #ef4444, #b91c1c); margin-top: 12px; }
+.reset-btn:hover { opacity: 0.9; }
+
+/* About Tab */
+.about-content { background-color: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; line-height: 1.6; }
+.about-content p { margin-bottom: 8px; color: #cbd5e1; }
+.about-content a { color: #8b5cf6; text-decoration: none; }
+.about-content a:hover { text-decoration: underline; }
+.about-desc { margin-top: 16px; font-size: 0.9rem; color: #94a3b8; }
+
+/* Socials Tab Specifics */
+.upload-area { margin-bottom: 20px; text-align: center; }
+.upload-btn { background: linear-gradient(90deg, #6366f1, #8b5cf6); }
+.csv-status { margin-top: 12px; font-size: 0.85rem; color: #94a3b8; }
+.start-csv-btn { background: linear-gradient(90deg, #ec4899, #f43f5e); margin-bottom: 8px; }
+.start-csv-btn:disabled { background: #475569; cursor: not-allowed; }
+.csv-info { font-size: 0.8rem; color: #4ade80; text-align: center; margin-bottom: 20px; min-height: 20px; }
+
+/* License Feedback */
+.license-feedback {
+  font-size: 0.85rem;
+  color: #f87171;
+  text-align: center;
+  margin-top: 12px;
+  min-height: 20px;
+  font-weight: 600;
+}
+
+/* License Tab - Redesign */
+
+/* Status banner */
+.lic-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(139,92,246,0.08));
+  border: 1px solid rgba(74,222,128,0.25);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.lic-status-dot-wrap {
+  width: 36px;
+  height: 36px;
+  background: rgba(74,222,128,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.lic-status-info { flex: 1; }
+.lic-status-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #4ade80;
+  margin-bottom: 2px;
+}
+.lic-status-sub {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* Info cards */
+.lic-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+.lic-card:hover { border-color: #8b5cf6; }
+.lic-card-icon {
+  font-size: 1.4rem;
+  width: 40px;
+  height: 40px;
+  background: #0f172a;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.lic-card-body { flex: 1; min-width: 0; }
+.lic-card-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+.lic-card-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lic-key-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.88rem;
+  color: #a78bfa;
+  letter-spacing: 0.05em;
+}
+
+/* Expiry & Days grid */
+.lic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.lic-grid-card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.lic-grid-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.lic-grid-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+.lic-days-card { border-color: rgba(139,92,246,0.3); background: rgba(139,92,246,0.06); }
+.lic-days-value { font-size: 1.4rem; color: #8b5cf6; }
+
+.signout-btn {
+  background: linear-gradient(90deg, #ef4444, #b91c1c);
+  margin-top: 4px;
+}
+.signout-btn:hover { opacity: 0.88; }
